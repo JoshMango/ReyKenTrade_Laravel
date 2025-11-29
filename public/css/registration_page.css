@@ -1,0 +1,98 @@
+.register-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.registration-content {
+    width: fit-content;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 30px;
+}
+
+
+.input {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    font-size: medium;
+    font-weight: light;
+    margin-top: 10px;
+}
+.input input {
+    float: right;
+    width: 20vw;
+}
+.error-text {
+    color: red;
+    font-size: small;
+}
+.submit-container {
+    z-index: 99;
+    text-align: center;
+    margin-top: 10px;
+}
+#submit-button, #clear-button {
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    width: fit-content;
+    padding: 10px;
+    margin-left: 1vw;
+    transition: all 0.2s ease;
+}
+#submit-button:hover, #clear-button:hover {
+    background-color: white;
+    color: black;
+}
+.policy-title-line {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+#policy-title {
+    font-size: 20px;
+    font-style:normal;
+    font-weight: bold;
+}
+.policy-toggles-hidden {
+    transition: 0.1s ease-in;
+    opacity: 0;
+    left: 100px;
+}
+.policy-toggles-visible {
+    transition: 0.1s ease-in;
+    opacity: 100%;
+    margin-left: 0.5vw;
+}
+.policy-toggle {
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    width: fit-content;
+    padding: 10px;
+    margin-left: 1vw;
+    transition: all 0.2s ease;
+}
+.policy-toggle:hover {
+    background-color: white;
+    color: black;
+}
+.policy-content-text {
+    font-size: small;
+}
+.policy-content-up {
+    transition: 0.5s ease-out;
+    height: 0;
+    opacity: 0%;
+    margin-top: -10px;
+}
+.policy-content-drop {
+    transition: 0.5s ease-in;
+    visibility: visible;
+    height: fit-content;
+    opacity: 100%;
+    margin-top: 0px;
+}

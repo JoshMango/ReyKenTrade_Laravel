@@ -1,0 +1,88 @@
+.header-text {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 64px;
+    font-weight: 300;
+    line-height: 80px;
+    text-transform: none;
+}
+
+.intro-header {
+display: flex;
+height: 620px;
+margin-bottom: 100px;
+justify-content: center;
+align-items: center;
+background-image: url("https://cdn.prod.website-files.com/6807669994f91c788fc1939e/6807669a94f91c788fc19478_placeholder%201%20-%20wide.svg");
+background-position: 50% 50%;
+background-size: cover;
+color: rgb(255, 255, 255);
+}
+
+.intro-content {
+width: 70%;
+margin-bottom: 20px;
+text-align: center;
+}
+
+.browse-button {
+min-width: 130px;
+height: 40px;
+color: white;
+padding: 5px 10px;
+font-weight: bold;
+cursor: pointer;
+transition: all 0.3s ease;
+display: inline-block;
+outline: none;
+overflow: hidden;
+background-color: black;
+border-radius: 6px;
+}
+
+.browse-button:hover {
+    background-color: white;
+    color: black;
+}
+
+.bestsellers-wrap {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.bestsellers-wrap h1 {
+    text-align: center;
+    font-weight: 300;
+}
+
+#bestsellers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.bestseller-item {
+    border: 0;
+    padding: 15px;
+    text-align: center;
+    background-color: white;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.bestseller-item img {
+    max-width: 30%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.bestseller-item h3 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.bestseller-item p {
+    font-weight: bold;
+}

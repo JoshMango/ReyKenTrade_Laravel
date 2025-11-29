@@ -1,0 +1,78 @@
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -500px; 
+    width: 300px;
+    height: 100%;
+    background-color: #f8f8f8;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.cart-sidebar.open {
+    right: 0;
+}
+
+.cart-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.cart-sidebar-header h3 {
+    margin: 0;
+}
+
+.close-sidebar-btn {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.sidebar-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cart-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.cart-item img {
+    max-width: 20%;
+}
+
+#checkout-button, .remove-cart-item-btn {
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    width: auto;
+    padding: 10px;
+    transition: all 0.2s ease;
+}
+
+#checkout-button:hover, .remove-cart-item-btn:hover {
+    background-color: white;
+    color: black;
+}
