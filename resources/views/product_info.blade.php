@@ -49,7 +49,7 @@
         </div>
         <div class="product-info">
             <h2 class="product-name" style="color: #333; margin-bottom: 15px;">{{ $product->productName }}</h2>
-            <p class="product-price" id="product-price" data-base-price="{{ $product->productPrice }}" style="font-size: 2em; font-weight: bold; color: #007bff; margin-bottom: 20px;">
+            <p class="product-price" id="product-price" data-base-price="{{ $product->productPrice }}" style="font-size: 2em; font-weight: bold; color: #4437ff; margin-bottom: 20px;">
                 Price: ₱{{ number_format($product->productPrice, 2) }}
             </p>
             
@@ -96,7 +96,7 @@
                         <label for="quantity" style="display: block; margin-bottom: 10px; font-weight: 600;">Quantity:</label>
                         <div style="display: flex; gap: 10px; align-items: center;">
                             <input type="number" id="quantity" name="quantity" class="quantity-input" value="1" min="1" onchange="updatePrice()" style="padding: 10px; width: 80px; border: 1px solid #ddd; border-radius: 4px;">
-                            <button type="submit" class="add-to-cart-button" style="padding: 12px 30px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 1em;">
+                            <button type="submit" class="add-to-cart-button" style="padding: 12px 30px; background: #5546ff; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 1em;">
                                 Add to Cart
                             </button>
                         </div>
@@ -112,7 +112,7 @@
                     </form>
                 @endif
             @else
-                <p style="margin: 20px 0; color: #666;">Please <a href="{{ route('login') }}" style="color: #007bff;">login</a> to add items to cart.</p>
+                <p style="margin: 20px 0; color: #666;">Please <a href="{{ route('login') }}" style="color: #4400ff;">login</a> to add items to cart.</p>
             @endauth
         </div>
     </div>
@@ -132,7 +132,7 @@
                             <img src="{{ asset('storage/uploads/' . $otherProduct->productImage) }}" alt="{{ $otherProduct->productName }}" style="width: 100%; height: 100%; object-fit: contain;">
                         </div>
                         <h4 class="similar-product-name" style="color: #333; margin-bottom: 5px; font-size: 0.95em;">{{ $otherProduct->productName }}</h4>
-                        <p class="similar-product-price" style="color: #007bff; font-weight: 600;">₱{{ number_format($otherProduct->productPrice, 2) }}</p>
+                        <p class="similar-product-price" style="color: #4000ff; font-weight: 600;">₱{{ number_format($otherProduct->productPrice, 2) }}</p>
                     </a>
                 </div>
             @empty

@@ -14,7 +14,7 @@ class SellerController extends Controller
             return redirect()->route('home');
         }
 
-        $products = Product::all();
+        $products = Product::paginate(9); // 9 items per page (3 per row)
         return view('seller_landingpage', compact('products'));
     }
 
@@ -24,7 +24,10 @@ class SellerController extends Controller
             'search' => 'required|string',
         ]);
 
-        $products = Product::where('productName', 'like', '%' . $request->search . '%')->get();
+        // Use paginate here too
+        $products = Product::where('productName', 'like', '%' . $request->search . '%')
+                           ->paginate(9)
+                           ->withQueryString(); // keeps the search term in the pagination links
 
         return view('seller_landingpage', compact('products'));
     }

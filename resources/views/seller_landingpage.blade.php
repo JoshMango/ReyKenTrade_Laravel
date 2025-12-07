@@ -17,13 +17,24 @@
     @if(isset($products) && $products->count() > 0)
         <div class="seller-grid">
         @foreach($products as $product)
-            <div class="product-card">
+            <div class="product-card" 
+                data-id="{{ $product->product_id }}"
+                data-brand="{{ $product->brand }}"
+                data-size="{{ $product->size }}"
+                data-type="{{ $product->type }}"
+                data-load_index="{{ $product->load_index }}"
+                data-speed_rating="{{ $product->speed_rating }}">
                 <div class="product-summary">
                     <div class="product-thumb"><img src="{{ asset('storage/uploads/' . $product->productImage) }}" alt="{{ $product->productName }}"></div>
                     <div class="product-meta">
                         <h3>{{ $product->productName }}</h3>
                         <p class="price">₱{{ number_format($product->productPrice, 2) }}</p>
-                        <p class="short-desc">{{ \Illuminate\Support\Str::limit($product->productDesc, 100) }}</p>
+                        <div class="description-container">
+                            <button type="button" class="toggle-desc">Show Description ▽</button>
+                            <div class="desc-content">
+                                <p>{{ $product->productDesc }}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="product-actions">
@@ -34,66 +45,14 @@
                         <button type="submit" class="btn-delete">Delete</button>
                     </form>
                 </div>
-
-                <div id="edit-panel-{{ $product->product_id }}" class="edit-panel" style="display:none;">
-                    <form method="POST" action="{{ route('products.update', $product->product_id) }}" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        <div class="form-row">
-                            <label>Product Name</label>
-                            <input type="text" name="productName" value="{{ $product->productName }}" required>
-                        </div>
-                        <div class="form-row">
-                            <label>Brand</label>
-                            <input type="text" name="brand" value="{{ $product->brand }}">
-                        </div>
-                        <div class="form-row">
-                            <label>Size</label>
-                            <input type="text" name="size" value="{{ $product->size }}">
-                        </div>
-                        <div class="form-row">
-                            <label>Type</label>
-                            <select name="type">
-                                <option value="">Select Type</option>
-                                <option value="All-Season" {{ $product->type == 'All-Season' ? 'selected' : '' }}>All-Season</option>
-                                <option value="All-Terrain" {{ $product->type == 'All-Terrain' ? 'selected' : '' }}>All-Terrain</option>
-                                <option value="Performance" {{ $product->type == 'Performance' ? 'selected' : '' }}>Performance</option>
-                                <option value="Touring" {{ $product->type == 'Touring' ? 'selected' : '' }}>Touring</option>
-                                <option value="Mud Terrain" {{ $product->type == 'Mud Terrain' ? 'selected' : '' }}>Mud Terrain</option>
-                                <option value="Comfort" {{ $product->type == 'Comfort' ? 'selected' : '' }}>Comfort</option>
-                                <option value="Eco" {{ $product->type == 'Eco' ? 'selected' : '' }}>Eco</option>
-                                <option value="OEM" {{ $product->type == 'OEM' ? 'selected' : '' }}>OEM</option>
-                            </select>
-                        </div>
-                        <div class="form-row">
-                            <label>Load Index</label>
-                            <input type="number" name="load_index" value="{{ $product->load_index }}">
-                        </div>
-                        <div class="form-row">
-                            <label>Speed Rating</label>
-                            <input type="text" name="speed_rating" value="{{ $product->speed_rating }}">
-                        </div>
-                        <div class="form-row">
-                            <label>Price</label>
-                            <input type="number" name="productPrice" value="{{ $product->productPrice }}" step="0.01" required>
-                        </div>
-                        <div class="form-row">
-                            <label>Description</label>
-                            <textarea name="productDescription" rows="3">{{ $product->productDesc }}</textarea>
-                        </div>
-                        <div class="form-row">
-                            <label>Image (optional)</label>
-                            <input type="file" name="productImage" accept="image/*">
-                        </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn-apply">Update</button>
-                            <button type="button" class="btn-cancel" data-target="edit-panel-{{ $product->product_id }}">Cancel</button>
-                        </div>
-                    </form>
-                </div>
             </div>
         @endforeach
         </div>
+        @if($products->hasPages())
+            <div class="pagination-wrapper" style="text-align:center; margin-top: 20px;">
+                {{ $products->onEachSide(1)->links('vendor.pagination.tailwind') }}
+            </div>
+        @endif
     @endif
 </div>
 
@@ -154,7 +113,69 @@
         </div>
     </form>
 </div>
+<div id="edit-product-modal" style="display:none;">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+        <h3>Edit Product</h3>
+        <form id="edit-product-form" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="product_id" id="edit-product-id">
+            
+            <div class="form-row">
+                <label>Product Name</label>
+                <input type="text" name="productName" id="edit-productName" required>
+            </div>
+            <div class="form-row">
+                <label>Brand</label>
+                <input type="text" name="brand" id="edit-brand">
+            </div>
+            <div class="form-row">
+                <label>Size</label>
+                <input type="text" name="size" id="edit-size">
+            </div>
+            <div class="form-row">
+                <label>Type</label>
+                <select name="type" id="edit-type">
+                    <option value="">Select Type</option>
+                    <option value="All-Season">All-Season</option>
+                    <option value="All-Terrain">All-Terrain</option>
+                    <option value="Performance">Performance</option>
+                    <option value="Touring">Touring</option>
+                    <option value="Mud Terrain">Mud Terrain</option>
+                    <option value="Comfort">Comfort</option>
+                    <option value="Eco">Eco</option>
+                    <option value="OEM">OEM</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label>Load Index</label>
+                <input type="number" name="load_index" id="edit-load_index">
+            </div>
+            <div class="form-row">
+                <label>Speed Rating</label>
+                <input type="text" name="speed_rating" id="edit-speed_rating">
+            </div>
+            <div class="form-row">
+                <label>Price</label>
+                <input type="number" name="productPrice" id="edit-productPrice" step="0.01" required>
+            </div>
+            <div class="form-row">
+                <label>Description</label>
+                <textarea name="productDescription" id="edit-productDescription" rows="4"></textarea>
+            </div>
+            <div class="form-row">
+                <label>Image</label>
+                <input type="file" name="productImage" accept="image/*">
+            </div>
 
+            <div class="modal-actions">
+                <button type="submit" class="btn-apply">Update</button>
+                <button type="button" class="btn-cancel">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
 @push('scripts')
 <script src="https://kit.fontawesome.com/499c47f1d4.js" crossorigin="anonymous"></script>
 <script>
@@ -163,34 +184,52 @@
         document.getElementById('add-product-modal').style.display = 'block';
     });
 
-    // Toggle edit panels per product
-    document.querySelectorAll('.btn-edit').forEach(function(btn) {
+        document.querySelectorAll('.btn-edit').forEach(btn => {
         btn.addEventListener('click', function() {
-            var targetId = this.getAttribute('data-target');
-            var panel = document.getElementById(targetId);
-            if (!panel) return;
-            if (panel.style.display === 'none' || panel.style.display === '') {
-                panel.style.display = 'block';
-                this.textContent = 'Close';
-                this.classList.add('active');
-            } else {
-                panel.style.display = 'none';
-                this.textContent = 'Edit';
-                this.classList.remove('active');
-            }
+            const productCard = this.closest('.product-card');
+            const modal = document.getElementById('edit-product-modal');
+            const form = document.getElementById('edit-product-form');
+
+            // populate form values
+            document.getElementById('edit-product-id').value = productCard.dataset.id;
+            document.getElementById('edit-productName').value = productCard.querySelector('h3').textContent;
+            document.getElementById('edit-productPrice').value = productCard.querySelector('.price').textContent.replace('₱','');
+            document.getElementById('edit-productDescription').value = productCard.querySelector('.desc-content p').textContent;
+            document.getElementById('edit-brand').value = productCard.dataset.brand || '';
+            document.getElementById('edit-size').value = productCard.dataset.size || '';
+            document.getElementById('edit-type').value = productCard.dataset.type || '';
+            document.getElementById('edit-load_index').value = productCard.dataset.load_index || '';
+            document.getElementById('edit-speed_rating').value = productCard.dataset.speed_rating || '';
+
+            // update form action dynamically
+            form.action = `/products/${productCard.dataset.id}`;
+
+            modal.style.display = 'block';
         });
     });
 
-    // Cancel buttons inside edit panels
-    document.querySelectorAll('.btn-cancel').forEach(function(btn) {
+    // Close Modal
+    document.querySelectorAll('#edit-product-modal .btn-cancel, #edit-product-modal .modal-overlay').forEach(el => {
+        el.addEventListener('click', function() {
+            document.getElementById('edit-product-modal').style.display = 'none';
+        });
+    });
+
+    document.querySelectorAll('.toggle-desc').forEach(btn => {
         btn.addEventListener('click', function() {
-            var targetId = this.getAttribute('data-target');
-            var panel = document.getElementById(targetId);
-            if (!panel) return;
-            panel.style.display = 'none';
-            // reset corresponding edit button text
-            var editBtn = document.querySelector('.btn-edit[data-target="' + targetId + '"]');
-            if (editBtn) { editBtn.textContent = 'Edit'; editBtn.classList.remove('active'); }
+            const container = this.closest('.description-container');
+            const content = container.querySelector('.desc-content');
+            if (container.classList.contains('active')) {
+                // hide
+                content.style.maxHeight = '0';
+                container.classList.remove('active');
+                this.textContent = 'Show Description';
+            } else {
+                // show
+                content.style.maxHeight = content.scrollHeight + 'px';
+                container.classList.add('active');
+                this.textContent = 'Hide Description';
+            }
         });
     });
 </script>

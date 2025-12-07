@@ -97,29 +97,31 @@ class OrderController extends Controller
     public function myOrders()
     {
         $orders = Order::where('user_id', Auth::id())
-            ->where('order_status', '!=', 'Delivered')
-            ->with('items.product')
-            ->orderBy('order_date', 'desc')
-            ->get()
-            ->map(function ($order) {
-                return [
-                    'order_id' => $order->order_id,
-                    'order_date' => $order->order_date->format('Y-m-d H:i:s'),
-                    'total_amount' => $order->total_amount,
-                    'order_status' => $order->order_status,
-                    'shipping_address' => $order->shipping_address,
-                    'customer_number' => $order->customer_number,
-                    'payment_mode' => $order->payment_mode,
-                    'items' => $order->items->map(function ($item) {
-                        return [
-                            'product_name' => $item->product->productName,
-                            'product_price' => $item->product->productPrice,
-                            'quantity' => $item->quantity,
-                            'total_price' => $item->total_price,
-                        ];
-                    }),
-                ];
-            });
+        ->where('order_status', '!=', 'Delivered')
+        ->with('items.product')
+        ->orderBy('order_date', 'desc')
+        ->paginate(8) // 8 orders per page
+        ->through(function ($order) {
+            return [
+                'order_id' => $order->order_id,
+                'order_date' => $order->order_date->format('Y-m-d H:i:s'),
+                'total_amount' => $order->total_amount,
+                'order_status' => $order->order_status,
+                'shipping_address' => $order->shipping_address,
+                'customer_number' => $order->customer_number,
+                'payment_mode' => $order->payment_mode,
+                'items' => $order->items->map(function ($item) {
+                    return [
+                        'product_name' => $item->product->productName,
+                        'product_price' => $item->product->productPrice,
+                        'quantity' => $item->quantity,
+                        'total_price' => $item->total_price,
+                        'product_image' => $item->product->productImage, // include image
+                    ];
+                }),
+            ];
+        });
+
 
         return view('customer_orders', compact('orders'));
     }
@@ -129,10 +131,8 @@ class OrderController extends Controller
         $orders = Order::whereNotIn('order_status', ['Delivered', 'Rejected'])
             ->with(['user', 'items.product'])
             ->orderBy('order_date', 'desc')
-            ->get()
-            ->groupBy('order_id')
-            ->map(function ($orderGroup) {
-                $order = $orderGroup->first();
+            ->paginate(9) // 9 per page
+            ->through(function ($order) {
                 return [
                     'order_id' => $order->order_id,
                     'fullname' => $order->user->fullname,
@@ -154,8 +154,7 @@ class OrderController extends Controller
                         ];
                     }),
                 ];
-            })
-            ->values();
+            });
 
         return view('seller_orders', compact('orders'));
     }

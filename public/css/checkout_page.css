@@ -1,3 +1,120 @@
+/* Checkout Page Container */
+.checkout-content {
+    max-width: 600px;
+    margin: 40px auto;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 30px 35px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Checkout Greeting */
 .checkout-text h1 {
-    font-weight: 200;
+    font-weight: 600;
+    font-size: 1.8rem;
+    color: #4a4a4a;
+    margin-bottom: 15px;
+}
+
+/* Form Headings */
+.payment-form h3 {
+    font-weight: 700;
+    color: #5f40ea;
+    margin: 20px 0 10px;
+    text-align: left;
+}
+
+.payment-form h4 {
+    font-weight: 400;
+    color: #444;
+    margin: 10px 0;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+/* Input Fields */
+.payment-form input[type="text"],
+.payment-form input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.payment-form input[type="text"]:focus,
+.payment-form input[type="number"]:focus {
+    border-color: #7864d4;
+    box-shadow: 0 0 6px rgba(120, 100, 212, 0.35);
+    outline: none;
+}
+
+/* Radio Buttons */
+.payment-form input[type="radio"] {
+    margin-right: 8px;
+}
+
+.method-label {
+    margin-right: 20px;
+    font-weight: 600;
+    color: #5f40ea;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Checkout Total */
+#checkout-total-amount {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #4a4a4a;
+    margin-top: 20px;
+    text-align: left;
+}
+
+/* Submit Button */
+#payment-submit {
+    width: 100%;
+    padding: 12px 0;
+    margin-top: 20px;
+    background: linear-gradient(90deg, #563cec 0%, #a04dff 100%);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+#payment-submit:hover {
+    background: linear-gradient(90deg, #4934ab 0%, #903ce9 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(108, 99, 255, 0.35);
+}
+
+/* Customer info fields */
+.customer-info {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.customer-info:focus {
+    border-color: #7864d4;
+    box-shadow: 0 0 6px rgba(120, 100, 212, 0.35);
+    outline: none;
+}
+
+/* Form styling */
+.payment-form {
+    text-align: left;
 }

@@ -1,7 +1,75 @@
-h1 {
+/* Page container */
+body {
+    font-family: 'Arial', sans-serif;
+    background: #f8f7ff;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 10px;
+}
+
+/* Centered card */
+.order-confirmation {
+    max-width: 500px;
+    margin: 60px auto;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 40px 30px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.07);
     text-align: center;
 }
-h3 {
-    text-align: center;
-    font-weight: light;
+
+/* Heading styles */
+.order-confirmation h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #5f40ea;
+    margin-bottom: 20px;
+}
+
+.order-confirmation h3 {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #4a4a4a;
+    margin-bottom: 15px;
+}
+
+/* Paragraph text */
+.order-confirmation p {
+    font-size: 1rem;
+    color: #555;
+    margin: 8px 0;
+}
+
+/* Highlight total amount */
+.order-confirmation p.total-amount {
+    font-weight: 600;
+    color: #563cec;
+    font-size: 1.2rem;
+}
+
+/* Highlight status */
+.order-confirmation p.status {
+    font-weight: 600;
+    color: #4caf50; /* green for completed/paid status */
+    font-size: 1.1rem;
+}
+
+/* Optional: Add a button to return home */
+.return-home-btn {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 20px;
+    background: linear-gradient(90deg, #563cec 0%, #a04dff 100%);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.25s ease;
+}
+
+.return-home-btn:hover {
+    background: linear-gradient(90deg, #4934ab 0%, #903ce9 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(108, 99, 255, 0.35);
 }

@@ -3,107 +3,93 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/product_listing.css') }}">
 <style>
-    .filters-container {
-        background: #f8f9fa;
-        padding: 20px;
-        border-radius: 8px;
-        margin-bottom: 30px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+/* Pagination container */
+.pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+/* Pagination UL (tailwind template) */
+.pagination-wrapper nav > div > span,
+.pagination-wrapper nav > div > a {
+    margin: 0 3px;
+}
+
+/* Pagination buttons (links + spans) */
+.pagination-wrapper a,
+.pagination-wrapper span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    height: 38px;
+
+    padding: 0 12px;
+    border-radius: 10px;
+
+    background: #ede9ff;   /* light purple */
+    color: #5f40ea;        /* primary purple */
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+
+    transition: 0.25s ease;
+    cursor: pointer;
+}
+
+/* Hover */
+.pagination-wrapper a:hover {
+    background: #d9d2ff; /* deeper soft purple */
+    color: #3f00b3;      /* slightly darker purple */
+    transform: translateY(-2px);
+}
+
+/* Active page */
+.pagination-wrapper .bg-indigo-500,
+.pagination-wrapper .bg-indigo-500:hover {
+    background: #5f40ea !important;
+    color: #fff !important;
+    box-shadow: 0 3px 8px rgba(95, 64, 234, 0.4);
+}
+
+/* Disabled buttons */
+.pagination-wrapper .cursor-default {
+    background: #f1f1f1 !important;
+    color: #6d6d6d !important;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* Arrow icons */
+.pagination-wrapper svg {
+    width: 18px;
+    height: 18px;
+}
+
+.pagination-wrapper svg path,
+.pagination-wrapper svg polyline {
+    stroke: #5f40ea;
+}
+
+/* Disabled arrow icon */
+.pagination-wrapper .cursor-default svg path,
+.pagination-wrapper .cursor-default svg polyline {
+    stroke: #bbbbbb;
+}
+
+/* Mobile responsive sizing */
+@media (max-width: 480px) {
+    .pagination-wrapper a,
+    .pagination-wrapper span {
+        min-width: 32px;
+        height: 32px;
+        font-size: 12px;
+        padding: 0 8px;
     }
-    .filters-row {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 15px;
-        margin-bottom: 15px;
-    }
-    .filter-group {
-        display: flex;
-        flex-direction: column;
-    }
-    .filter-group label {
-        font-weight: 600;
-        margin-bottom: 5px;
-        color: #333;
-    }
-    .filter-group select,
-    .filter-group input {
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        font-size: 14px;
-    }
-    .filter-actions {
-        display: flex;
-        gap: 10px;
-        margin-top: 15px;
-    }
-    .btn-filter {
-        padding: 10px 20px;
-        background: #007bff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: 600;
-    }
-    .btn-filter:hover {
-        background: #0056b3;
-    }
-    .btn-clear {
-        background: #6c757d;
-    }
-    .btn-clear:hover {
-        background: #545b62;
-    }
-    .product-item {
-        background: white;
-        border-radius: 8px;
-        padding: 20px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .product-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-    .product-image {
-        width: 100%;
-        height: 200px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 15px;
-        background: #fafafa;
-        border-radius: 6px;
-        padding: 8px;
-    }
-    .product-item img {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
-        display: block;
-    }
-    .product-item h3 {
-        color: #333;
-        margin-bottom: 10px;
-        font-size: 1.2em;
-    }
-    .product-specs {
-        font-size: 0.9em;
-        color: #666;
-        margin-bottom: 10px;
-    }
-    .product-price {
-        font-size: 1.5em;
-        font-weight: bold;
-        color: #007bff;
-        margin-top: 10px;
-    }
-    .results-count {
-        margin-bottom: 20px;
-        color: #666;
-        font-size: 1.1em;
-    }
+}
+
 </style>
 
 <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 20px;">
@@ -202,5 +188,10 @@
             </div>
         @endforelse
     </div>
+    @if($products->hasPages())
+            <div class="pagination-wrapper" style="text-align:center; margin-top: 20px;">
+                {{ $products->links('vendor.pagination.tailwind') }}
+            </div>
+    @endif
 </div>
 @endsection

@@ -6,7 +6,7 @@
 <br><br>
 <div class="login-body">
     <div class="login-content">
-        <h2>Login</h2>
+        <h2>Login to ReykenTraders</h2>
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <label for="username">Username:</label>

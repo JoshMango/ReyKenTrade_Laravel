@@ -1,98 +1,169 @@
+/* Center the whole page */
 .register-body {
+    min-height: 80vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(118, 75, 162, 0.08));
+    padding: 20px;
 }
 
+/* Card container */
 .registration-content {
-    width: fit-content;
+    width: 380px;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 35px 40px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0,0,0,0.07);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     text-align: center;
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 30px;
 }
 
+.registration-content:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
 
+/* Heading */
+.registration-content h2 {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    color: #4a4a4a;
+    font-weight: 700;
+}
+
+/* Form inputs */
 .input {
     display: flex;
     flex-direction: column;
+    margin-top: 15px;
     text-align: left;
-    font-size: medium;
-    font-weight: light;
-    margin-top: 10px;
 }
+
+.input label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #444;
+}
+
 .input input {
-    float: right;
-    width: 20vw;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
+
+.input input:focus {
+    border-color: #7864d4;
+    box-shadow: 0 0 6px rgba(120, 100, 212, 0.35);
+    outline: none;
+}
+
+/* Error text */
 .error-text {
     color: red;
-    font-size: small;
+    font-size: 0.85rem;
+    margin-top: 4px;
 }
+
+/* Buttons container */
 .submit-container {
-    z-index: 99;
+    margin-top: 20px;
     text-align: center;
-    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
 }
-#submit-button, #clear-button {
-    background-color: black;
+
+/* Submit Button (Purple) */
+#submit-button {
+    background: linear-gradient(90deg, #563cec 0%, #a04dff 100%);
     color: white;
-    border-radius: 10px;
-    width: fit-content;
-    padding: 10px;
-    margin-left: 1vw;
-    transition: all 0.2s ease;
+    border-radius: 8px;
+    padding: 12px 18px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s ease;
+    flex: 1;
 }
-#submit-button:hover, #clear-button:hover {
-    background-color: white;
-    color: black;
+
+#submit-button:hover {
+    background: linear-gradient(90deg, #4934ab 0%, #903ce9 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(108, 99, 255, 0.35);
 }
+
+/* Clear Button (Grey) */
+#clear-button {
+    background-color: #b0b0b0;
+    color: white;
+    border-radius: 8px;
+    padding: 12px 18px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s ease;
+    flex: 1;
+}
+
+#clear-button:hover {
+    background-color: #8c8c8c;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+/* Account text */
+.account-exists {
+    margin-top: 18px;
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.account-exists a {
+    color: #6c63ff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.account-exists a:hover {
+    text-decoration: underline;
+}
+
+/* Policy toggles */
 .policy-title-line {
     display: flex;
-    flex-direction: row;
+    align-items: center;
     gap: 10px;
+    margin-top: 15px;
 }
+
 #policy-title {
-    font-size: 20px;
-    font-style:normal;
+    font-size: 1.1rem;
     font-weight: bold;
 }
-.policy-toggles-hidden {
-    transition: 0.1s ease-in;
-    opacity: 0;
-    left: 100px;
-}
-.policy-toggles-visible {
-    transition: 0.1s ease-in;
-    opacity: 100%;
-    margin-left: 0.5vw;
-}
-.policy-toggle {
-    background-color: black;
-    color: white;
-    border-radius: 10px;
-    width: fit-content;
-    padding: 10px;
-    margin-left: 1vw;
-    transition: all 0.2s ease;
-}
-.policy-toggle:hover {
-    background-color: white;
-    color: black;
-}
-.policy-content-text {
-    font-size: small;
-}
+
 .policy-content-up {
     transition: 0.5s ease-out;
     height: 0;
-    opacity: 0%;
+    opacity: 0;
     margin-top: -10px;
 }
+
 .policy-content-drop {
     transition: 0.5s ease-in;
     visibility: visible;
     height: fit-content;
-    opacity: 100%;
+    opacity: 1;
     margin-top: 0px;
+}
+
+.policy-content-text {
+    font-size: 0.85rem;
+    color: #555;
 }

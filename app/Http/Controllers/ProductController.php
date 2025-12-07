@@ -11,46 +11,46 @@ use Illuminate\Support\Str;
 class ProductController extends Controller
 {
     public function index(Request $request)
-    {
-        $query = Product::query();
+{
+    $query = Product::query();
 
-        // Search by product name
-        if ($request->has('search') && $request->search) {
-            $query->where('productName', 'like', '%' . $request->search . '%');
-        }
-
-        // Filter by brand
-        if ($request->has('brand') && $request->brand) {
-            $query->where('brand', $request->brand);
-        }
-
-        // Filter by type
-        if ($request->has('type') && $request->type) {
-            $query->where('type', $request->type);
-        }
-
-        // Filter by size
-        if ($request->has('size') && $request->size) {
-            $query->where('size', $request->size);
-        }
-
-        // Filter by price range
-        if ($request->has('min_price') && $request->min_price) {
-            $query->where('productPrice', '>=', $request->min_price);
-        }
-        if ($request->has('max_price') && $request->max_price) {
-            $query->where('productPrice', '<=', $request->max_price);
-        }
-
-        // Get unique values for filter dropdowns
-        $brands = Product::distinct()->pluck('brand')->filter()->sort()->values();
-        $types = Product::distinct()->pluck('type')->filter()->sort()->values();
-        $sizes = Product::distinct()->pluck('size')->filter()->sort()->values();
-
-        $products = $query->get();
-
-        return view('product_listing', compact('products', 'brands', 'types', 'sizes'));
+    // Search by product name
+    if ($request->has('search') && $request->search) {
+        $query->where('productName', 'like', '%' . $request->search . '%');
     }
+
+    // Filter by brand
+    if ($request->has('brand') && $request->brand) {
+        $query->where('brand', $request->brand);
+    }
+
+    // Filter by type
+    if ($request->has('type') && $request->type) {
+        $query->where('type', $request->type);
+    }
+
+    // Filter by size
+    if ($request->has('size') && $request->size) {
+        $query->where('size', $request->size);
+    }
+
+    // Filter by price range
+    if ($request->has('min_price') && $request->min_price) {
+        $query->where('productPrice', '>=', $request->min_price);
+    }
+    if ($request->has('max_price') && $request->max_price) {
+        $query->where('productPrice', '<=', $request->max_price);
+    }
+
+    // dropdown values
+    $brands = Product::distinct()->pluck('brand')->filter()->sort()->values();
+    $types = Product::distinct()->pluck('type')->filter()->sort()->values();
+    $sizes = Product::distinct()->pluck('size')->filter()->sort()->values();
+
+    // 🔥 ENABLE PAGINATION HERE
+    $products = $query->paginate(12)->withQueryString();
+    return view('product_listing', compact('products', 'brands', 'types', 'sizes'));
+}
 
     public function show($id)
     {
